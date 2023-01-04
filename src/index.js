@@ -43,8 +43,6 @@ module.exports = function toReadable(number) {
     } else if (number <= 99) {
         return hundreds[a[0]] + " " + ten[a[1]];
     } else if (number < 1000) {
-        return ten[a[0]] + " hundred " + hundreds[a[1]] + ten[a[2]];
-    } else if (number < 1000 && number % 10 == 0) {
-        return ten[a[0]] + " hundred " + hundreds[a[1]] + " ";
+        return ten[a[0]] + " hundred " + hundreds[a[1]] + " " + ten[a[2]];
     }
 };
