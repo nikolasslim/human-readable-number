@@ -1,5 +1,5 @@
 module.exports = function toReadable(number) {
-    let ten = [
+    let oneTo19 = [
         "",
         "one",
         "two",
@@ -21,7 +21,7 @@ module.exports = function toReadable(number) {
         "eighteen",
         "nineteen",
     ];
-    let hundreds = [
+    let dozens = [
         "",
         "",
         "twenty",
@@ -34,15 +34,17 @@ module.exports = function toReadable(number) {
         "ninety",
     ];
     let a = String(number);
-    if (number <= 19) {
-        return ten[number];
-    } else if (number <= 20) {
-        return hundreds[a[0]];
-    } else if (number <= 99 && number % 10 == 0) {
-        return hundreds[a[0]];
-    } else if (number <= 99) {
-        return hundreds[a[0]] + " " + ten[a[1]];
-    } else if (number < 1000) {
-        return ten[a[0]] + " hundred " + hundreds[a[1]] + " " + ten[a[2]];
+    let b = Number(a.slice(1));
+    if (number == 0) return "zero";
+    if (number <= 19) return oneTo19[number];
+    if (number <= 99 && number % 10 != 0) {
+        return dozens[a[0]] + " " + oneTo19[a[1]];
     }
+    if (number <= 99 && number % 10 == 0) return dozens[a[0]];
+    if (number > 99 && number % 100 == 0) return oneTo19[a[0]] + " hundred";
+    if (number > 100 && b < 20) return oneTo19[a[0]] + " hundred " + oneTo19[b];
+    if (number > 100 && number % 10 == 0)
+        return oneTo19[a[0]] + " hundred " + dozens[a[1]];
+    if (number >= 120 && number % 10 != 0)
+        return oneTo19[a[0]] + " hundred " + dozens[a[1]] + " " + oneTo19[a[2]];
 };
